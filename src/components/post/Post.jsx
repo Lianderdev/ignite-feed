@@ -1,31 +1,55 @@
+import { Avatar } from '../avatar/Avatar'
 import { Comment } from '../comment/Comment'
+import { format, formatDistanceToNow } from 'date-fns'
+import ptBR from 'date-fns/locale/pt-BR'
 import styles from '../post/Post.module.css'
+import { useState } from 'react'
 
-export function Post() {
+export function Post({ author, publishedAt, content }) {
+
+    const publishedDateFormat = format(publishedAt, "dd 'de' LLLL 'às' HH:mm'h'", {
+        locale: ptBR
+    })
+
+    const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
+        locale: ptBR,
+        addSuffix: true
+    })
+
+    const [comments, setComments] = useState([
+        'oi liander'
+    ])
+
+    const handleNewComment = (e) => {
+        e.preventDefault()
+        setComments([...comments, comments.length + 1])
+    }
+
     return (
         <article className={styles.post}>
             <header>
                 <div className={styles.author}>
-                    <img src='https://github.com/lianderDev.png' />
+                    <Avatar src={author.avatarUrl} />
                     <div className={styles.authorInfo}>
-                        <strong>Liander Vinicius</strong>
-                        <span>Web Developer</span>
+                        <strong>{author.name}</strong>
+                        <span>{author.role}</span>
                     </div>
                 </div>
-                <time title='11 de maio às 08h13' dateTime='2022-05-11 08:13:30'> Públicado há 1h </time>
+                <time title={publishedDateRelativeToNow} dateTime={publishedAt.toISOString()}>{publishedDateFormat}</time>
             </header>
             <div className={styles.content}>
-                <p>Fala Galera</p>
-                <p>Acabei de Inicar mais curso de programação, agora pela melhor plataforma de cursos desenvolvimento, a Rockseat.</p>
-                <p>👉 {' '}<a href="#">Portfólio/LianderDev</a></p>
-                <p>
-                    <a href="#">#Code</a>{' '}
-                    <a href="#">#Programing</a>{' '}
-                    <a href="#">  #Happy</a>
-                </p>
+                {content.map((line) => {
+                    switch (line.type) {
+                        case 'paragraph':
+                            return <p>{line.content}</p>
+
+                        case 'link':
+                            return <p><a href="">{line.content}</a></p>
+                    }
+                })}
             </div>
 
-            <form className={styles.commentForm}>
+            <form onSubmit={handleNewComment} className={styles.commentForm}>
                 <strong>Deixe seu feeback</strong>
 
                 <textarea
@@ -38,7 +62,9 @@ export function Post() {
             </form>
 
             <div className={styles.commentList}>
-                <Comment />
+                {comments.map((comment) => {
+                    return <Comment comment={comment}/>
+                })}
             </div>
         </article>
     )

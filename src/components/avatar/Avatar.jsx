@@ -1,8 +1,11 @@
 import styles from '../avatar/Avatar.module.css'
 import style from '../../assets/styles.jpg'
 
-export function Avatar() {
+export function Avatar({ src, hasBorder = true }) {
     return (
-        <img src='https://github.com/lianderDev.png' className={styles.avatar} />
+        <img
+            className={hasBorder ? styles.avatarWithBorder : styles.avatar}
+            src={src}
+        />
     )
 }
