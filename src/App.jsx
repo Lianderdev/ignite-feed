@@ -7,9 +7,9 @@ const posts = [
   {
     id: 1,
     author: {
-      avatarUrl: 'https://github.com/Edugon0.png',
-      name: 'Eduardo Victor',
-      role: 'Backend Developer'
+      avatarUrl: 'https://github.com/lianderDev.png',
+      name: 'Liander Vinicius',
+      role: 'Web Developer'
     },
     content: [
       { type: 'paragraph', content: 'Fala Galera' },
@@ -17,21 +17,7 @@ const posts = [
       { type: 'link', content: 'Portfólio/LianderDev' },
     ],
     publishedAt: new Date('2024-11-28 10:10:00')
-  },
-  {
-    id: 1,
-    author: {
-      avatarUrl: 'https://github.com/Edugon0.png',
-      name: 'Eduardo Victor',
-      role: 'Backend Developer'
-    },
-    content: [
-      { type: 'paragraph', content: 'Fala Galera' },
-      { type: 'paragraph', content: 'Acabei de Inicar mais curso de programação, agora pela melhor plataforma de cursos desenvolvimento, a Rockseat.' },
-      { type: 'link', content: 'Portfólio/LianderDev' },
-    ],
-    publishedAt: new Date('2024-11-28 10:10:00')
-  },
+  }
 ]
 
 export function App() {
@@ -44,7 +30,7 @@ export function App() {
         </aside>
         <main>
           {posts.map((post) => {
-            return <Post {...post} />
+            return <Post key={post.id} {...post} />
           })}
         </main>
       </div>

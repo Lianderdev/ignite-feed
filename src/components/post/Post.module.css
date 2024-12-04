@@ -1,7 +1,7 @@
 .post {
     background-color: var(--gray-800);
     border-radius: 8px;
-    padding: 2.5rem;
+    padding: 2.5rem 2.5rem 0.7rem 2.5rem;
 }
 
 .post + .post {
@@ -91,7 +91,7 @@
 }
 
 .commentForm button {
-    padding: 1rem 1.5rem;
+    padding: 1rem 1.5rem ;
     margin-top: 1rem;
     border-radius: 8px;
     border: 0;
@@ -101,8 +101,13 @@
     transition: background-color 0.1s;
 }
 
-.commentForm button:hover {
+.commentForm button:not(:disabled):hover {
     background-color: var(--green-300);
+}
+
+.commentForm button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
 }
 
 .commentList {
